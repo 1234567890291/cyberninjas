@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Ethical Hacking | Cyber Ninja</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            overflow-x: hidden;
+            height: 100vh; /* Ensure body takes full viewport height */
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #1c1c1c;
+            color: #e0e0e0;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1001;
+            box-sizing: border-box;
+        }
+
+        .navbar .logo {
+            font-size: 28px;
+            color: #00bcd4;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .navbar .logo:hover {
+            color: #e0e0e0;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            flex-grow: 1;
+            justify-content: center; /* Center nav links */
+        }
+
+        .navbar .nav-links li {
+            position: relative;
+            margin: 0 15px;
+        }
+
+        .navbar .nav-links a {
+            color: #e0e0e0;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s, border-bottom 0.3s;
+        }
+
+        .navbar .nav-links a:hover {
+            background-color: #333;
+            color: #00bcd4;
+            border-bottom: 2px solid #00bcd4;
+        }
+
+        .navbar .nav-links .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            top: 100%;
+            left: 0;
+            width: 300px; /* Increased width */
+            z-index: 1000;
+        }
+
+        .navbar .nav-links .dropdown-content a {
+            color: #e0e0e0;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s, color 0.3s, border-bottom 0.3s;
+        }
+
+        .navbar .nav-links .dropdown-content a:hover {
+            background-color: #444;
+            color: #00bcd4;
+            border-bottom: 2px solid #00bcd4;
+        }
+
+        .navbar .nav-links .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .navbar .actions {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Adjust spacing between buttons */
+        }
+
+        .navbar .actions a {
+            background-color: #00bcd4;
+            color: #fff;
+            padding: 11px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            margin-left: 10px;
+            box-sizing: border-box;
+        }
+
+        .navbar .actions a:hover {
+            background-color: #0097a7;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1002;
+        }
+
+        .menu-toggle .bar {
+            height: 3px;
+            width: 25px;
+            background-color: #e0e0e0;
+            margin: 4px 0;
+            transition: 0.3s;
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: -250px; /* Start off-screen */
+            background-color: #1c1c1c;
+            padding-top: 60px;
+            transition: left 0.3s ease; /* Smooth transition */
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .sidenav.open {
+            left: 0; /* Slide in when open */
+        }
+
+        .sidenav a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #e0e0e0;
+            display: block;
+            transition: background-color 0.3s, color 0.3s, border-bottom 0.3s;
+        }
+
+        .sidenav a:hover {
+            background-color: #333;
+            color: #00bcd4;
+            border-bottom: 2px solid #00bcd4;
+        }
+
+        .sidenav .dropdown-content {
+            display: none;
+            background-color: #333;
+            box-shadow: none;
+            position: relative;
+            left: 0;
+            width: 100%;
+            border-radius: 0;
+            padding-left: 15px;
+        }
+
+        .sidenav .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Coming Soon Section */
+        .coming-soon-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #1e1e1e;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            margin-top: 80px; /* Adjusted to accommodate the fixed navbar */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -40%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        .coming-soon-container h1 {
+            font-size: 3.5em;
+            color: #00bcd4;
+            margin-bottom: 20px;
+            transition: transform 0.3s, color 0.3s;
+        }
+
+        .coming-soon-container h1:hover {
+            transform: scale(1.1);
+            color: #e0e0e0;
+        }
+
+        .coming-soon-container p {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+        }
+
+        .countdown {
+            font-size: 2em;
+            color: #00bcd4;
+            margin-bottom: 20px;
+        }
+
+        .newsletter {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .newsletter input[type="email"] {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 300px;
+            max-width: 100%;
+            background-color: #2c2c2c;
+            color: #e0e0e0;
+        }
+
+        .newsletter button {
+            background-color: #00bcd4;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .newsletter button:hover {
+            background-color: #0097a7;
+        }
+
+        @media (max-width: 768px) {
+            .navbar .nav-links {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .sidenav {
+                width: 100%;
+                left: -100%; /* Ensure it starts off-screen on small devices */
+            }
+
+            .sidenav.open {
+                left: 0; /* Slide in when open */
+            }
+
+            .sidenav a {
+                font-size: 22px;
+                padding: 15px 20px;
+            }
+
+            .sidenav .dropdown-content a {
+                font-size: 18px;
+                padding-left: 30px;
+            }
+
+            .coming-soon-container h1 {
+                font-size: 3em;
+            }
+
+            .coming-soon-container p {
+                font-size: 1.2em;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .coming-soon-container h1 {
+                font-size: 2.5em;
+            }
+
+            .coming-soon-container p {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="#" class="logo">Cyber Ninja</a>
+        <div class="menu-toggle" onclick="toggleNav()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li class="dropdown">
+                <a href="#">More</a>
+                <div class="dropdown-content">
+                    <a href="#">Courses</a>
+                    <a href="./about-us/">About Us</a>
+                    <a href="./contact/">Contact Us</a>
+                    <!-- Added more links -->
+                    <a href="#">Blog</a>
+                    <a href="#">FAQs</a>
+                    <a href="#">Support</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#">Tools</a>
+                <div class="dropdown-content">
+                    <a href="#">Phishing Attack</a>
+                    <a href="#">NMAP</a>
+                    <a href="#">DDOS</a>
+                    <a href="#">Metasploit</a>
+                    <a href="#">Burp Suite</a>
+                    <a href="#">Wireshark</a>
+                    <!-- Added more links -->
+                    <a href="#">Kali Linux</a>
+                    <a href="#">Aircrack-ng</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#">Quizzes</a>
+                <div class="dropdown-content">
+                    <a href="#">Cybersecurity</a>
+                    <a href="#">Ethical Hacking</a>
+                    <a href="#">Penetration Testing</a>
+                    <!-- Added more links -->
+                    <a href="#">Network Security</a>
+                    <a href="#">Malware Analysis</a>
+                </div>
+            </li>
+        </ul>
+        <div class="actions">
+            <a href="#">Sign Up</a>
+            <a href="#">Login</a>
+        </div>
+    </div>
+
+    <!-- Side Navigation -->
+    <div class="sidenav">
+        <span class="closebtn" onclick="toggleNav()">&times;</span>
+        <a href="#">Home</a>
+        <div class="dropdown">
+            <a href="#">More</a>
+            <div class="dropdown-content">
+                <a href="#">Courses</a>
+                <a href="./about-us/">About Us</a>
+                <a href="./contact/">Contact Us</a>
+                <!-- Added more links -->
+                <a href="#">Blog</a>
+                <a href="#">FAQs</a>
+                <a href="#">Support</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <a href="#">Tools</a>
+            <div class="dropdown-content">
+                <a href="#">Phishing Attack</a>
+                <a href="#">NMAP</a>
+                <a href="#">DDOS</a>
+                <a href="#">Metasploit</a>
+                <a href="#">Burp Suite</a>
+                <a href="#">Wireshark</a>
+                <!-- Added more links -->
+                <a href="#">Kali Linux</a>
+                <a href="#">Aircrack-ng</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <a href="#">Quizzes</a>
+            <div class="dropdown-content">
+                <a href="#">Cybersecurity</a>
+                <a href="#">Ethical Hacking</a>
+                <a href="#">Penetration Testing</a>
+                <!-- Added more links -->
+                <a href="#">Network Security</a>
+                <a href="#">Malware Analysis</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Coming Soon Section -->
+    <div class="coming-soon-container">
+        <h1>Cyber Ninja</h1>
+        <p>We're launching soon! Stay tuned for something amazing.</p>
+        <div class="countdown" id="countdown"></div>
+        <div class="newsletter">
+            <input type="email" placeholder="Enter your email" id="email">
+            <button onclick="subscribe()">Notify Me</button>
+        </div>
+    </div>
+
+    <script>
+        // Countdown Timer
+        const launchDate = new Date("Dec 31, 2024 23:59:59").getTime();
+
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = launchDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown").innerHTML = days + "d " + hours + "h " +
+                minutes + "m " + seconds + "s ";
+
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("countdown").innerHTML = "We're Live!";
+            }
+        }, 1000);
+
+        // Sidebar Menu Toggle
+        function toggleNav() {
+            const sidenav = document.querySelector(".sidenav");
+            sidenav.classList.toggle('open');
+        }
+
+        // Close sidenav on window resize if viewport width is larger than 768px
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                document.querySelector(".sidenav").classList.remove('open');
+            }
+        });
+
+        // Newsletter Subscription
+        function subscribe() {
+            const email = document.getElementById("email").value;
+            if (email) {
+                alert(`Thank you for subscribing with ${email}!`);
+            } else {
+                alert("Please enter a valid email address.");
+            }
+        }
+    </script>
+</body>
+</html>

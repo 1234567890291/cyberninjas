@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Scanner Tool</title>
+</head>
+<body>
+    <h1>IP Scanner Tool</h1>
+    <input type="text" id="ipAddress" placeholder="Enter IP address">
+    <button onclick="scanIp()">Scan IP</button>
+    <pre id="results"></pre>
+
+    <script>
+        async function scanIp() {
+            const ipAddress = document.getElementById('ipAddress').value;
+            const urls = {
+                "iplocation.net": `https://api.iplocation.net/?cmd=ip-country&ip=${ipAddress}`,
+                "networkcalc.com": `https://networkcalc.com/api/dns/lookup/${ipAddress}`,
+                "db-ip": `https://db-ip.com/api/${ipAddress}`,
+                "IPregistry.co": `https://api.ipregistry.co/${ipAddress}?key=YOUR_API_KEY`,
+                "IPGeolocation.io": `https://api.ipgeolocation.io/ipgeo?apiKey=YOUR_API_KEY&ip=${ipAddress}`,
+                "IPapi.co": `https://api.ipapi.co/${ipAddress}/json/`,
+                "ipbase.com": `https://api.ipbase.com/api/v2/info?apikey=YOUR_API_KEY&ip=${ipAddress}`,
+                "criminalip.io": `https://api.criminalip.io/v1/ip/${ipAddress}`
+            };
+
+            const results = {};
+
+            for (const [service, url] of Object.entries(urls)) {
+                try {
+                    const response = await fetch(url);
+                    const data = await response.json();
+                    results[service] = data;  // Store JSON response
+                } catch (error) {
+                    results[service] = `Error: ${error.message}`;
+                }
+            }
+
+            displayResults(results);
+        }
+
+        function displayResults(results) {
+            const resultsElement = document.getElementById('results');
+            resultsElement.textContent = '';
+            
+            for (const [service, info] of Object.entries(results)) {
+                resultsElement.textContent += `Service: ${service}\n${JSON.stringify(info, null, 2)}\n${'='.repeat(40)}\n`;
+            }
+        }
+    </script>
+</body>
+</html>

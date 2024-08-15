@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Monitoring</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.4.3/bcrypt.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        #status {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        #details {
+            font-size: 18px;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+        .loading {
+            color: orange;
+            font-style: italic;
+        }
+        #lastChecked {
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        #spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #3498db;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .hidden {
+            display: none;
+        }
+        .reveal-container {
+            margin-top: 20px;
+        }
+        .reveal-button {
+            cursor: pointer;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .reveal-button:hover {
+            background-color: #2980b9;
+        }
+        .eye-icon {
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .password-container {
+            margin-top: 20px;
+        }
+        .password-input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .toggle-icon {
+            cursor: pointer;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Website Monitoring</h1>
+    <div id="status" class="loading"><div id="spinner"></div> Checking...</div>
+    <div id="details"></div>
+    <div id="lastChecked"></div>
+    
+    <div class="reveal-container hidden" id="revealContainer">
+        <span id="eyeIcon" class="eye-icon">👁️</span>
+        <span id="toggleIcon" class="toggle-icon hidden">👁️</span>
+    </div>
+    
+    <div class="password-container" id="passwordContainer">
+        <input type="password" class="password-input" id="passwordInput" placeholder="Enter password to reveal IP">
+        <button class="reveal-button" id="passwordButton">Submit</button>
+    </div>
+    
+    <script>
+        const websiteUrl = 'https://cyberninjas.vercel.app/';
+        const ipGeoUrl = 'https://api.ipgeolocation.io/ipgeo?apiKey=e979957e1a0542d5a7de8315dccc9a66';
+        const statusElement = document.getElementById('status');
+        const detailsElement = document.getElementById('details');
+        const lastCheckedElement = document.getElementById('lastChecked');
+        const revealContainer = document.getElementById('revealContainer');
+        const passwordContainer = document.getElementById('passwordContainer');
+        const eyeIcon = document.getElementById('eyeIcon');
+        const toggleIcon = document.getElementById('toggleIcon');
+        const passwordButton = document.getElementById('passwordButton');
+        const passwordInput = document.getElementById('passwordInput');
+        let isIpVisible = false; // Track IP visibility
+
+        const hashedPassword = '$2a$10$ErBQQRJ.SfKt0Kw3xRz0yOKL.mLVJHJ3.4RWm6dpQd8zKtm.m7q8G'; 
+        
+        function getBrowserLanguage() {
+            return navigator.language || navigator.userLanguage;
+        }
+
+        async function fetchIpGeolocation() {
+            try {
+                const response = await fetch(ipGeoUrl);
+                if (response.ok) {
+                    return await response.json();
+                } else {
+                    throw new Error(`Failed to fetch IP geolocation data: ${response.statusText}`);
+                }
+            } catch (error) {
+                console.error(error);
+                return { ip: 'Unavailable', city: 'Unavailable', country_name: 'Unavailable' };
+            }
+        }
+
+        async function checkWebsite() {
+            const start = Date.now();
+            statusElement.className = 'loading';
+            statusElement.innerHTML = `<div id="spinner"></div> Checking...`;
+
+            let geoData = await fetchIpGeolocation();
+            let ipAddress = geoData.ip || 'Unavailable';
+            let city = geoData.city || 'Unavailable';
+            let country = geoData.country_name || 'Unavailable';
+
+            try {
+                const response = await fetch(websiteUrl, { method: 'GET', mode: 'cors' });
+                const duration = Date.now() - start;
+                const browserLanguage = getBrowserLanguage();
+                if (response.ok) {
+                    statusElement.textContent = `Website is up! Response time: ${duration} ms`;
+                    statusElement.className = 'success';
+                    detailsElement.innerHTML = `
+                        <p>Status Code: ${response.status}</p>
+                        <p>Status Text: ${response.statusText}</p>
+                        <p>URL: ${websiteUrl}</p>
+                        <p>Access Location: ${browserLanguage}</p>
+                        <p id="ipAddress" class="hidden">Your Current IP Address: ${ipAddress}</p>
+                        <p>Your Location: ${city}, ${country}</p>
+                    `;
+                    revealContainer.classList.remove('hidden');
+                    toggleIcon.classList.remove('hidden'); // Show toggle icon
+                } else {
+                    statusElement.textContent = `Website is down. Status code: ${response.status}`;
+                    statusElement.className = 'error';
+                    detailsElement.innerHTML = '';
+                    revealContainer.classList.add('hidden');
+                    toggleIcon.classList.add('hidden'); // Hide toggle icon
+                }
+            } catch (error) {
+                statusElement.textContent = `Error: ${error.message}`;
+                statusElement.className = 'error';
+                detailsElement.innerHTML = '';
+                revealContainer.classList.add('hidden');
+                toggleIcon.classList.add('hidden'); // Hide toggle icon
+            }
+            
+            const lastCheckedTime = new Date().toLocaleTimeString();
+            lastCheckedElement.textContent = `Last checked at: ${lastCheckedTime}`;
+        }
+
+        function showPasswordPrompt() {
+            passwordContainer.classList.remove('hidden');
+        }
+
+        async function verifyPassword() {
+            const enteredPassword = passwordInput.value;
+            const isMatch = await bcrypt.compare(enteredPassword, hashedPassword);
+            if (isMatch) {
+                document.getElementById('ipAddress').classList.remove('hidden');
+                passwordContainer.classList.add('hidden');
+                toggleIcon.classList.remove('hidden'); // Show toggle icon after correct password
+            } else {
+                alert('Incorrect password.');
+            }
+        }
+
+        function toggleIpVisibility() {
+            const ipAddressElement = document.getElementById('ipAddress');
+            isIpVisible = !isIpVisible;
+            ipAddressElement.classList.toggle('hidden', !isIpVisible);
+            toggleIcon.textContent = isIpVisible ? '🙈' : '👁️'; // Toggle between eye icons
+        }
+
+        document.getElementById('passwordButton').addEventListener('click', verifyPassword);
+        document.getElementById('eyeIcon').addEventListener('click', showPasswordPrompt);
+        toggleIcon.addEventListener('click', toggleIpVisibility);
+
+        checkWebsite();
+        setInterval(checkWebsite, 60000); // Check every 60 seconds
+    </script>
+</body>
+</html>

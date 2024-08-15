@@ -14,12 +14,18 @@
     <script>
         async function scanIp() {
             const ipAddress = document.getElementById('ipAddress').value;
+            if (!ipAddress) {
+                alert('Please enter an IP address.');
+                return;
+            }
+
+            const apiKey = 'e979957e1a0542d5a7de8315dccc9a66';
             const urls = {
                 "iplocation.net": `https://api.iplocation.net/?cmd=ip-country&ip=${ipAddress}`,
                 "networkcalc.com": `https://networkcalc.com/api/dns/lookup/${ipAddress}`,
                 "db-ip": `https://db-ip.com/api/${ipAddress}`,
                 "IPregistry.co": `https://api.ipregistry.co/${ipAddress}?key=YOUR_API_KEY`,
-                "IPGeolocation.io": `https://api.ipgeolocation.io/ipgeo?apiKey=YOUR_API_KEY&ip=${ipAddress}`,
+                "IPGeolocation.io": `https://api.ipgeolocation.io/ipgeo?apiKey=e979957e1a0542d5a7de8315dccc9a66&ip=${ipAddress}`,
                 "IPapi.co": `https://api.ipapi.co/${ipAddress}/json/`,
                 "ipbase.com": `https://api.ipbase.com/api/v2/info?apikey=YOUR_API_KEY&ip=${ipAddress}`,
                 "criminalip.io": `https://api.criminalip.io/v1/ip/${ipAddress}`
@@ -31,7 +37,7 @@
                 try {
                     const response = await fetch(url);
                     const data = await response.json();
-                    results[service] = data;  // Store JSON response
+                    results[service] = data;
                 } catch (error) {
                     results[service] = `Error: ${error.message}`;
                 }

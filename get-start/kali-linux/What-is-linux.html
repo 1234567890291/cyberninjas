@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux and Kali Linux</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        ul {
+            margin: 10px 0;
+            padding: 0;
+            list-style: none;
+        }
+        ul li {
+            background: #f4f4f4;
+            margin: 5px 0;
+            padding: 10px;
+            border-left: 5px solid #333;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Linux and Kali Linux</h1>
+        <div class="section">
+            <h2>Linux</h2>
+            <p><strong>Linux</strong> is a family of open-source Unix-like operating systems based on the Linux kernel, an operating system kernel first released on September 17, 1991, by Linus Torvalds. Linux is typically packaged in a Linux distribution (distro).</p>
+            <h3>Key Features of Linux:</h3>
+            <ul>
+                <li><strong>Open Source</strong>: The source code is freely available and can be modified and distributed by anyone under the GNU General Public License (GPL).</li>
+                <li><strong>Multiuser and Multitasking</strong>: Supports multiple users at the same time and can perform multiple tasks simultaneously.</li>
+                <li><strong>Security</strong>: Known for its robust security features, including user permissions and access controls.</li>
+                <li><strong>Stability and Performance</strong>: Offers high stability and performance, making it ideal for servers and critical applications.</li>
+                <li><strong>Support for Various Hardware</strong>: Runs on a wide range of hardware, from desktops to mainframes.</li>
+                <li><strong>Community Support</strong>: Backed by a large community of developers and users who contribute to its development and provide support.</li>
+            </ul>
+            <h3>Popular Linux Distributions:</h3>
+            <ul>
+                <li><strong>Ubuntu</strong>: User-friendly, suitable for beginners.</li>
+                <li><strong>Debian</strong>: Known for its stability.</li>
+                <li><strong>Fedora</strong>: Known for cutting-edge features.</li>
+                <li><strong>CentOS</strong>: Community version of Red Hat Enterprise Linux.</li>
+                <li><strong>Arch Linux</strong>: Known for its simplicity and customization.</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h2>Kali Linux</h2>
+            <p><strong>Kali Linux</strong> is a Debian-derived Linux distribution designed for digital forensics and penetration testing. It is maintained and funded by Offensive Security Ltd.</p>
+            <h3>Key Features of Kali Linux:</h3>
+            <ul>
+                <li><strong>Security Tools</strong>: Comes pre-installed with numerous tools for security testing, including network analyzers, vulnerability scanners, password crackers, and more.</li>
+                <li><strong>Customizability</strong>: Users can create their own ISO images and customize their Kali Linux installation.</li>
+                <li><strong>Live Boot</strong>: Can be booted from a USB drive or CD/DVD without installation.</li>
+                <li><strong>Forensics Mode</strong>: Provides a forensics mode to boot into a system without touching the hard drive, maintaining forensic integrity.</li>
+                <li><strong>Documentation and Community</strong>: Extensive documentation and an active community for support and guidance.</li>
+            </ul>
+            <h3>Common Tools in Kali Linux:</h3>
+            <ul>
+                <li><strong>Nmap</strong>: Network scanner.</li>
+                <li><strong>Wireshark</strong>: Network protocol analyzer.</li>
+                <li><strong>John the Ripper</strong>: Password cracker.</li>
+                <li><strong>Metasploit Framework</strong>: Penetration testing framework.</li>
+                <li><strong>Aircrack-ng</strong>: Wireless network security tools.</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h2>Differences Between Linux and Kali Linux</h2>
+            <h3>Purpose:</h3>
+            <ul>
+                <li><strong>Linux</strong>: General-purpose operating system, suitable for a wide range of applications including desktop, server, and embedded systems.</li>
+                <li><strong>Kali Linux</strong>: Specialized for security professionals for penetration testing, security research, computer forensics, and reverse engineering.</li>
+            </ul>
+            <h3>User Base:</h3>
+            <ul>
+                <li><strong>Linux</strong>: Wide range of users, from beginners to advanced users and professionals.</li>
+                <li><strong>Kali Linux</strong>: Primarily used by security professionals, ethical hackers, and researchers.</li>
+            </ul>
+            <h3>Pre-installed Software:</h3>
+            <ul>
+                <li><strong>Linux</strong>: Comes with general-purpose software like web browsers, office suites, multimedia tools, etc.</li>
+                <li><strong>Kali Linux</strong>: Comes with a comprehensive suite of security tools and utilities.</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h2>Common Kali Linux Commands</h2>
+            <ul>
+                <li><strong>nmap</strong>: Scans networks and discovers hosts and services. <code>nmap [options] [target]</code></li>
+                <li><strong>airmon-ng</strong>: Enables monitor mode on wireless interfaces. <code>airmon-ng start [interface]</code></li>
+                <li><strong>aircrack-ng</strong>: Cracks WEP and WPA-PSK keys. <code>aircrack-ng [options] [capture file]</code></li>
+                <li><strong>metasploit</strong>: Runs the Metasploit Framework for penetration testing. <code>msfconsole</code></li>
+                <li><strong>hydra</strong>: Brute force login cracker. <code>hydra -l [login] -p [password] [target] [protocol]</code></li>
+                <li><strong>john</strong>: Password cracker tool. <code>john [options] [password file]</code></li>
+                <li><strong>tcpdump</strong>: Captures and analyzes network traffic. <code>tcpdump [options]</code></li>
+                <li><strong>wireshark</strong>: GUI network protocol analyzer. <code>wireshark</code></li>
+                <li><strong>sqlmap</strong>: Automated SQL injection tool. <code>sqlmap [options] -u [URL]</code></li>
+                <li><strong>netcat</strong>: Reads and writes data across network connections. <code>nc [options] [target] [port]</code></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

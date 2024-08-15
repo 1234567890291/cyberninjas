@@ -1,0 +1,143 @@
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    color: #333333;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+
+
+
+
+/* Dark mode styles */
+.dark {
+    background-color: #333333;
+    color: #ffffff;
+}
+
+/* Code block styles */
+.dark pre {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    border-radius: 5px;
+    padding: 10px;
+    overflow-x: auto;
+    transition: background-color 0.3s ease;
+}
+
+.dark pre:hover {
+    background-color: #242424;
+}
+
+/* List styles */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s ease;
+}
+
+ul li:hover {
+    background-color: #f4f4f4;
+}
+
+/* Copy button styles */
+.copy-to-clipboard-button {
+    padding: 0.5rem 1rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.copy-to-clipboard-button:hover {
+    background-color: #45a049;
+    transform: scale(1.1);
+}
+
+/* Code block hover effect */
+.code-toolbar pre:hover {
+    background-color: #242424;
+    color: #ddd;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+    ul li {
+        padding: 8px;
+    }
+
+    .copy-to-clipboard-button {
+        padding: 0.4rem 0.8rem;
+    }
+}
+
+/* Typography */
+code, pre, .cont {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Default styles */
+.cont {
+    font-family: Arial, sans-serif;
+}
+
+.text-dark {
+    color: #333333;
+}
+
+.dark {
+    background-color: #333333;
+    color: #ffffff;
+}
+
+.dark pre {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    border-radius: 5px;
+    padding: 10px;
+    overflow-x: auto;
+    transition: background-color 0.3s ease;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+    .cont ul li {
+        margin-bottom: 10px; /* Adjust spacing for smaller screens */
+    }
+    
+    .toolbar {
+        display: block; /* Change toolbar display for smaller screens */
+        position: static;
+    }
+
+    .toolbar-item {
+        margin-left: 0; /* Reset margin for toolbar items */
+        margin-top: 5px; /* Add space between toolbar items */
+    }
+
+    .copy-to-clipboard-button {
+        width: 100%; /* Make copy button full width */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .cont ul li {
+        margin-bottom: 5px; /* Further reduce spacing for smaller screens */
+    }
+
+    .copy-to-clipboard-button {
+        padding: 5px; /* Adjust padding for smaller copy buttons */
+        font-size: 12px; /* Adjust font size for smaller screens */
+    }
+}

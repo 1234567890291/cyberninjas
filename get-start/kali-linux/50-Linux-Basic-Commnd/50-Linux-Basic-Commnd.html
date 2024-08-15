@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title itemprop="name">Installing Kali Linux | Kali Linux Documentation</title>
+    <meta itemprop="name" content="Installing Kali Linux | Kali Linux Documentation">
+    <meta name="application-name" content="Installing Kali Linux | Kali Linux Documentation">
+    <meta name="twitter:title" content="Installing Kali Linux | Kali Linux Documentation">
+    <meta property="og:site_name" content="Kali Linux">
+    <meta property="og:title" content="Installing Kali Linux | Kali Linux Documentation">
+    <meta itemprop="description" content="Installing Kali Linux (single boot) on your computer is an easy process. This guide will cover the basic install (which can be done on bare metal or guest VM), with the option of encrypting the partition. At times, you may have sensitive data you would prefer to encrypt using Full Disk Encryption (FDE).">
+    <meta name="description" content="Installing Kali Linux (single boot) on your computer is an easy process. This guide will cover the basic install (which can be done on bare metal or guest VM), with the option of encrypting the partition. At times, you may have sensitive data you would prefer to encrypt using Full Disk Encryption (FDE).">
+    <meta name="twitter:description" content="Installing Kali Linux (single boot) on your computer is an easy process. This guide will cover the basic install (which can be done on bare metal or guest VM), with the option of encrypting the partition. At times, you may have sensitive data you would prefer to encrypt using Full Disk Encryption (FDE).">
+    <meta property="og:description" content="Installing Kali Linux (single boot) on your computer is an easy process. This guide will cover the basic install (which can be done on bare metal or guest VM), with the option of encrypting the partition. At times, you may have sensitive data you would prefer to encrypt using Full Disk Encryption (FDE).">
+    <meta name="keywords" content="kali,linux,kalilinux,Penetration,Testing,Penetration Testing,Distribution,Advanced">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="language" content="English">
+    <meta property="og:locale" content="en_US">
+    <link rel="stylesheet" href="style.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="cont   leading-relaxed text-dark dark:text-gray-100"><ul>
+        <li>ls - list the files and directories in the current directory
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+        ┌──(Dit㉿Kali)-[~]
+        └─$ ls
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>cd - change the current directory
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+        ┌──(Dit㉿Kali)-[~]
+        └─$cd dir_name
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>
+        mkdir - create a new directory
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+    ┌──(Dit㉿Kali)-[~]
+    └─$mkdir msu
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>rmdir - remove a directory
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+        ┌──(Dit㉿Kali)-[~]
+        └─$rmdir rohan
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>pwd - print the current working directory
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$pwd
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>cp - copy files or directories
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">#We will copy a file called example.txt from the current directory to a directory called backup
+        
+            ┌──(Dit㉿Kali)-[~]
+            └─$cp example.txt backup/
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>mv - move or rename files or directories
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$mv example.txt backup/
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>rm - remove files or directories
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$rm example.txt
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>touch - create a new empty file or update the timestamp of an existing file
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$touch shayan.txt
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>cat - concatenate and display files
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$cat example.txt
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>man - manual for a command
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$man ls
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>htop - an interactive process viewer and system monitor
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$htop
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>chmod - change the permissions of a file or directory
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash"># The first digit represents the owner of the file/directory
+        # The second digit represents the group that the file/directory belongs to
+        # The third digit represents all other users
+        # 0 (no permission)
+        # 1 (execute only)
+        # 2 (write only)
+        # 3 (write and execute)
+        # 4 (read only)
+        # 5 (read and execute)
+        # 6 (read and write)
+        # 7 (read, write, and execute)
+        
+        ┌──(Dit㉿Kali)-[~]
+        └─$chmod 700 file.txt
+
+        ===========or==========
+
+        ┌──(Dit㉿Kali)-[~]
+        └─$chmode +x file-name
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li><script src="main.js"></script>
+        <li>chown - change the owner of a file or directory
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$chown new_owner example.txt
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>tar - create or extract compressed archive files
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash"># x: extract files from an archive
+        # t: list the contents of an archive
+        # r: append files to an existing archive
+        # z: use gzip compression
+        # j: use bzip2 compression
+        # cf: create file
+        #xf: extract file
+
+
+        ┌──(Dit㉿Kali)-[~]
+        └─$tar cf archive.tar file1 file2 file3
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>gzip - compress files
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$gzip file.txt
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>gunzip - decompress compressed files
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$gunzip file.txt.gz
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>ssh - connect to a remote server securely
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$ssh username@server_address
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>scp - securely copy files between systems
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$scp myfile.txt user@remotehost:/home/user/
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>ping - test network connectivity
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$ping 8.8.8.8
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>ifconfig - display or configure network interfaces
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$ifconfig
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>netstat - display network connection information
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$netstat
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>route - view or configure network routing tables
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$route [options] [add/delete/show]
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>top - display system resource usage and processes
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$top
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>ps - display information about running processes
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$ps aux
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>kill - terminate a process
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$kill [PID]
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>systemctl - control system services and settings
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash"># Start the nginx service
+        systemctl start nginx
+        
+        # Check the status of the nginx service
+        ================1================
+        ┌──(Dit㉿Kali)-[~]
+        └─$systemctl status nginx
+        ================2================
+        # Stop the nginx service
+        ┌──(Dit㉿Kali)-[~]
+        └─$systemctl stop nginx
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>service - control system services
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$service apache2 start
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>useradd - add a new user to the system
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$useradd Dit
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>passwd - change the password for a user
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$passwd Dit
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>userdel - delete a user from the system
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$userdel Dit
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>su - switch user to become another user
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$su john
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>sudo - execute a command as another user or with elevated privileges
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$sudo
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>uptime - display system uptime and load average
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$uptime
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>df - display disk space usage
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$df
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>du - display disk usage by file or directory
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$du
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>mount - mount a file system
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$sudo mount /dev/sdb1 /mnt/usb
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>umount - unmount a file system
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$sudo umount /mnt/usb
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>date - display or set the system date and time
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$date
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>whoami - display the current user name
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$whoami
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>which - locate a program or command in the system path
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">ls
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>finger - displays all the information about user
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$finger Dit
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>uname - display system information
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$
+            uname
+            uname -a
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>history - display a list of previously executed commands
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$history
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>echo - display text or variables to the console
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$echo 'I need 50 basic linux commands!'
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>tee - redirect output to both a file and the console
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$ ls | tee file.txt
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>locate - locate any file on the system
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$locate file.txt
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>sort - sort lines of text in a file or input
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$cat file.txt
+        banana
+        orange
+        apple
+        sort file.txt
+        apple
+        banana
+        orange
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>uniq - remove duplicate lines from a file or input
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+            ┌──(Dit㉿Kali)-[~]
+            └─$cat file.txt
+        apple
+        orange
+        banana
+        apple
+        banana
+        uniq file.txt
+        apple
+        orange
+        banana
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        <li>head/tail - display the first/last few lines of a file or input
+        <div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash">
+    
+        #display first 10 lines
+        ┌──(Dit㉿Kali)-[~]
+        └─$head file.txt    
+        ================================
+        #display last 10 lines
+        ┌──(Dit㉿Kali)-[~]
+        └─$tail file.txt
+        </code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+        </li>
+        </ul></div>
+</body>
+</html>

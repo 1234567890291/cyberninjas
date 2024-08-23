@@ -398,30 +398,28 @@
                 <a href="#">Tools</a>
                 <div class="dropdown-content">
                     <div class="dropdown">
-                        <a href="#">DDOS</a>
+                        <a href="#">Network Mapping Tools</a>
                         <div class="sub-dropdown-content">
                             <a href="#">NMAP</a>
                             <a href="#">Wireshark</a>
                         </div>
                     </div>
                     <div class="dropdown">
-                        <a href="#">OSINT</a>
+                        <a href="#">IP Tools</a>
                         <div class="sub-dropdown-content">
                             <a href="./tools/ip-advanced">Advanced IP Lookup</a>
                             <a href="./tools/ip-trac-web">IP Lookup</a>
-                            <a href="./tools/ip-trac-web/index.html">ip2location</a>
-                            <a href="./tools/search/">Search-T</a>
                         </div>
                     </div>
                     <div class="dropdown">
-                        <a href="#">DDoS </a>
+                        <a href="#">DDoS Tools</a>
                         <div class="sub-dropdown-content">
                             <a href="#">DDOS-1</a>
                             <a href="#">DDOS-2</a>
                         </div>
                     </div>
                     <div class="dropdown">
-                        <a href="#">Exploit</a>
+                        <a href="#">Exploit Tools</a>
                         <div class="sub-dropdown-content">
                             <a href="#">Metasploit</a>
                             <a href="#">Burp Suite</a>
@@ -522,12 +520,11 @@
 
     <!-- Coming Soon Section -->
     <div class="coming-soon-container">
-        <h1>Cyber Ninja</h1>
-        <p>We're launching soon! Stay tuned for something amazing.</p>
-        <div class="countdown" id="countdown"></div>
+        <h1>404</h1>
+        <p>Page Not Found </p>
         <div class="newsletter">
-            <input type="email" placeholder="Enter your email" id="email">
-            <button onclick="subscribe()">Notify Me</button>
+            <input type="email" placeholder="Enter Your Name" id="email">
+            <button onclick="subscribe()">Enter</button>
         </div>
     </div>
     <div class="footer">
@@ -535,27 +532,6 @@
     </div>
 
     <script>
-        // Countdown Timer
-        const launchDate = new Date("Dec 31, 2024 23:59:59").getTime();
-
-        const x = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = launchDate - now;
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById("countdown").innerHTML = days + "d " + hours + "h " +
-                minutes + "m " + seconds + "s ";
-
-            if (distance < 0) {
-                clearInterval(x);
-                document.getElementById("countdown").innerHTML = "We're Live!";
-            }
-        }, 1000);
-
         // Sidebar Menu Toggle
         function toggleNav() {
             const sidenav = document.querySelector(".sidenav");
@@ -573,9 +549,9 @@
         function subscribe() {
             const email = document.getElementById("email").value;
             if (email) {
-                alert(`Thank you for subscribing with ${email}!`);
+                alert(`Hi ${email}!`);
             } else {
-                alert("Please enter a valid email address.");
+                alert("Hi");
             }
         }
     </script>

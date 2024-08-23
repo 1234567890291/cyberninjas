@@ -11,6 +11,7 @@
             background-color: #121212;
             color: #e0e0e0;
             overflow-x: hidden;
+            height: 100vh;
         }
 
         /* Navbar */
@@ -26,6 +27,7 @@
             top: 0;
             width: 100%;
             z-index: 1001;
+            box-sizing: border-box;
         }
 
         .navbar .logo {
@@ -43,6 +45,9 @@
             display: flex;
             list-style: none;
             margin: 0;
+            padding: 0;
+            flex-grow: 1;
+            justify-content: center;
         }
 
         .navbar .nav-links li {
@@ -55,16 +60,13 @@
             padding: 10px 15px;
             text-decoration: none;
             border-radius: 5px;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.3s, color 0.3s, border-bottom 0.3s;
         }
 
         .navbar .nav-links a:hover {
             background-color: #333;
             color: #00bcd4;
-        }
-
-        .navbar .nav-links .dropdown {
-            position: relative;
+            border-bottom: 2px solid #00bcd4;
         }
 
         .navbar .nav-links .dropdown-content {
@@ -75,7 +77,7 @@
             border-radius: 5px;
             top: 100%;
             left: 0;
-            width: 200px;
+            width: 300px;
             z-index: 1000;
         }
 
@@ -84,25 +86,65 @@
             padding: 10px 15px;
             text-decoration: none;
             display: block;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.3s, color 0.3s, border-bottom 0.3s;
         }
 
         .navbar .nav-links .dropdown-content a:hover {
             background-color: #444;
             color: #00bcd4;
+            border-bottom: 2px solid #00bcd4;
         }
 
         .navbar .nav-links .dropdown:hover .dropdown-content {
             display: block;
         }
 
+        .navbar .nav-links .dropdown-content .dropdown {
+            position: relative;
+        }
+
+        .navbar .nav-links .dropdown-content .sub-dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #444;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            top: 0;
+            left: 100%;
+            width: 200px;
+            z-index: 1001;
+        }
+
+        .navbar .nav-links .dropdown-content .sub-dropdown-content a {
+            color: #e0e0e0;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .navbar .nav-links .dropdown-content .sub-dropdown-content a:hover {
+            background-color: #555;
+        }
+
+        .navbar .nav-links .dropdown-content .dropdown:hover .sub-dropdown-content {
+            display: block;
+        }
+
+        .navbar .actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
         .navbar .actions a {
             background-color: #00bcd4;
             color: #fff;
-            padding: 10px 15px;
+            padding: 11px 15px;
             text-decoration: none;
             border-radius: 5px;
             transition: background-color 0.3s;
+            margin-left: 10px;
+            box-sizing: border-box;
         }
 
         .navbar .actions a:hover {
@@ -132,9 +174,13 @@
             left: -250px;
             background-color: #1c1c1c;
             padding-top: 60px;
-            transition: 0.3s;
+            transition: left 0.3s ease;
             overflow-y: auto;
             z-index: 1000;
+        }
+
+        .sidenav.open {
+            left: 0;
         }
 
         .sidenav a {
@@ -143,21 +189,13 @@
             font-size: 18px;
             color: #e0e0e0;
             display: block;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.3s, color 0.3s, border-bottom 0.3s;
         }
 
         .sidenav a:hover {
             background-color: #333;
             color: #00bcd4;
-        }
-
-        .sidenav .closebtn {
-            position: absolute;
-            top: 20px;
-            right: 25px;
-            font-size: 36px;
-            color: #e0e0e0;
-            cursor: pointer;
+            border-bottom: 2px solid #00bcd4;
         }
 
         .sidenav .dropdown-content {
@@ -175,136 +213,82 @@
             display: block;
         }
 
-        .header {
-            background: #302f2f;
-            color: #00bcd4;
-            padding: 80px 20px;
-            text-align: center;
-            border-bottom: 5px solid #00bcd4;
+        .sidenav .dropdown-content .sub-dropdown-content {
+            display: none;
+            background-color: #444;
             position: relative;
-            z-index: 1;
-            margin-top: 60px; /* Ensure header is below the fixed navbar */
+            left: 100%;
+            width: 100%;
+            padding-left: 0;
         }
 
-        .header h1 {
-            font-size: 3.5em;
-            margin-bottom: 20px;
+        .sidenav .dropdown-content .sub-dropdown-content a {
+            padding-left: 30px;
         }
 
-        .header p {
-            font-size: 1.2em;
-            margin-top: 10px;
+        .sidenav .dropdown-content .dropdown:hover .sub-dropdown-content {
+            display: block;
         }
 
-        .content-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .row {
+        .coming-soon-container {
             display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            padding: 20px;
-        }
-
-        .side {
-            flex: 1 1 300px;
-            background: #1e1e1e;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
             padding: 20px;
             border-radius: 8px;
+            background-color: #1e1e1e;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            margin-top: 80px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            animation: fadeIn 1s forwards;
         }
 
-        .side h2 {
-            margin-bottom: 15px;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -40%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        .coming-soon-container h1 {
+            font-size: 3.5em;
             color: #00bcd4;
-        }
-
-        .main {
-            flex: 2 1 600px;
-            background: #1e1e1e;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
-
-        .main h2 {
-            color: #00bcd4;
-        }
-
-        .fakeimg {
-            background-color: #333;
-            height: 200px;
-            border-radius: 8px;
             margin-bottom: 20px;
+            transition: transform 0.3s, color 0.3s;
         }
 
-        .card {
-            background: #2c2c2c;
-            padding: 20px;
-            margin: 10px 0;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
-
-        .card h3 {
-            margin-bottom: 10px;
-            color: #00bcd4;
-        }
-
-        .footer {
-            background-color: #1c1c1c;
+        .coming-soon-container h1:hover {
+            transform: scale(1.1);
             color: #e0e0e0;
-            padding: 20px;
-            text-align: center;
-            border-top: 5px solid #00bcd4;
         }
 
-        .testimonials {
-            background: #1e1e1e;
-            color: #e0e0e0;
-            padding: 40px 20px;
-            text-align: center;
-            border-top: 5px solid #00bcd4;
-            border-bottom: 5px solid #00bcd4;
-            margin: 40px 0;
+        .coming-soon-container p {
+            font-size: 1.5em;
+            margin-bottom: 30px;
         }
 
-        .testimonial-card {
-            background: #2c2c2c;
-            padding: 20px;
-            margin: 10px auto;
-            border-radius: 8px;
-            max-width: 600px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            text-align: left;
-        }
-
-        .testimonial-card p {
-            font-style: italic;
-        }
-
-        .testimonial-card h4 {
-            margin-top: 15px;
-            font-weight: bold;
+        .countdown {
+            font-size: 2em;
             color: #00bcd4;
+            margin-bottom: 20px;
         }
 
         .newsletter {
-            background: #1e1e1e;
-            color: #e0e0e0;
-            padding: 40px 20px;
-            text-align: center;
-            border-top: 5px solid #00bcd4;
-        }
-
-        .newsletter form {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 10px;
+            margin-top: 20px;
         }
 
         .newsletter input[type="email"] {
@@ -313,6 +297,8 @@
             border-radius: 5px;
             width: 300px;
             max-width: 100%;
+            background-color: #2c2c2c;
+            color: #e0e0e0;
         }
 
         .newsletter button {
@@ -322,14 +308,13 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.3s;
         }
 
         .newsletter button:hover {
             background-color: #0097a7;
         }
 
-        /* Responsive Styles */
         @media (max-width: 768px) {
             .navbar .nav-links {
                 display: none;
@@ -344,6 +329,10 @@
                 left: -100%;
             }
 
+            .sidenav.open {
+                left: 0;
+            }
+
             .sidenav a {
                 font-size: 22px;
                 padding: 15px 20px;
@@ -353,20 +342,29 @@
                 font-size: 18px;
                 padding-left: 30px;
             }
+
+            .coming-soon-container h1 {
+                font-size: 3em;
+            }
+
+            .coming-soon-container p {
+                font-size: 1.2em;
+            }
         }
 
         @media (max-width: 600px) {
-            .header h1 {
+            .coming-soon-container h1 {
                 font-size: 2.5em;
             }
 
-            .header p {
+            .coming-soon-container p {
                 font-size: 1em;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Navbar -->
     <div class="navbar">
         <a href="#" class="logo">Cyber Ninja</a>
         <div class="menu-toggle" onclick="toggleNav()">
@@ -376,16 +374,55 @@
         </div>
         <ul class="nav-links">
             <li><a href="#">Home</a></li>
-            <li><a href="#">Courses</a></li>
+            <li class="dropdown">
+                <a href="#">More</a>
+                <div class="dropdown-content">
+                    <a href="#">Courses</a>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Blog</a>
+                    <a href="#">FAQs</a>
+                    <a href="#">About Us</a>
+                    <a href="#">Support</a>
+                </div>
+            </li>
             <li class="dropdown">
                 <a href="#">Tools</a>
                 <div class="dropdown-content">
-                    <a href="#">Phishing Attack</a>
-                    <a href="#">NMAP</a>
-                    <a href="#">DDOS</a>
-                    <a href="#">Metasploit</a>
-                    <a href="#">Burp Suite</a>
-                    <a href="#">Wireshark</a>
+                    <div class="dropdown">
+                        <a href="#">Network Mapping Tools</a>
+                        <div class="sub-dropdown-content">
+                            <a href="#">NMAP</a>
+                            <a href="#">Wireshark</a>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <a href="#">IP Tools</a>
+                        <div class="sub-dropdown-content">
+                            <a href="./tools/ip-advanced">Advanced IP Lookup</a>
+                            <a href="./tools/ip-trac-web">IP Lookup</a>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <a href="#">DDoS Tools</a>
+                        <div class="sub-dropdown-content">
+                            <a href="#">Sample DDoS Tool 1</a>
+                            <a href="#">Sample DDoS Tool 2</a>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <a href="#">Exploit Tools</a>
+                        <div class="sub-dropdown-content">
+                            <a href="#">Metasploit</a>
+                            <a href="#">Burp Suite</a>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <a href="#">Others</a>
+                        <div class="sub-dropdown-content">
+                            <a href="#">Phishing Attack</a>
+                            <a href="#">Aircrack-ng</a>
+                        </div>
+                    </div>
                 </div>
             </li>
             <li class="dropdown">
@@ -394,10 +431,10 @@
                     <a href="#">Cybersecurity</a>
                     <a href="#">Ethical Hacking</a>
                     <a href="#">Penetration Testing</a>
+                    <a href="#">Network Security</a>
+                    <a href="#">Malware Analysis</a>
                 </div>
             </li>
-            <li><a href="./about-us/">About Us</a></li>
-            <li><a href="./contact/">Contact Us</a></li>
         </ul>
         <div class="actions">
             <a href="#">Sign Up</a>
@@ -405,19 +442,59 @@
         </div>
     </div>
 
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <!-- Side Navigation -->
+    <div class="sidenav">
+        <span class="closebtn" onclick="toggleNav()">&times;</span>
         <a href="#">Home</a>
-        <a href="#">Courses</a>
+        <div class="dropdown">
+            <a href="#">More</a>
+            <div class="dropdown-content">
+                <a href="#">Courses</a>
+                <a href="#">Contact Us</a>
+                <a href="#">Blog</a>
+                <a href="#">FAQs</a>
+                <a href="#">About Us</a>
+                <a href="#">Support</a>
+            </div>
+        </div>
         <div class="dropdown">
             <a href="#">Tools</a>
             <div class="dropdown-content">
-                <a href="#">Phishing Attack</a>
-                <a href="#">NMAP</a>
-                <a href="#">DDOS</a>
-                <a href="#">Metasploit</a>
-                <a href="#">Burp Suite</a>
-                <a href="#">Wireshark</a>
+                <div class="dropdown">
+                    <a href="#">Network Mapping Tools</a>
+                    <div class="sub-dropdown-content">
+                        <a href="#">NMAP</a>
+                        <a href="#">Wireshark</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#">IP Tools</a>
+                    <div class="sub-dropdown-content">
+                        <a href="./tools/ip-advanced">Advanced IP Lookup</a>
+                        <a href="./tools/ip-trac-web">IP Lookup</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#">DDoS Tools</a>
+                    <div class="sub-dropdown-content">
+                        <a href="#">Sample DDoS Tool 1</a>
+                        <a href="#">Sample DDoS Tool 2</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#">Exploit Tools</a>
+                    <div class="sub-dropdown-content">
+                        <a href="#">Metasploit</a>
+                        <a href="#">Burp Suite</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#">Others</a>
+                    <div class="sub-dropdown-content">
+                        <a href="#">Phishing Attack</a>
+                        <a href="#">Aircrack-ng</a>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="dropdown">
@@ -426,85 +503,66 @@
                 <a href="#">Cybersecurity</a>
                 <a href="#">Ethical Hacking</a>
                 <a href="#">Penetration Testing</a>
-            </div>
-        </div>
-        <a href="./about-us/">About Us</a>
-        <a href="./contact/">Contact Us</a>
-        <a href="#">Sign Up</a>
-        <a href="#">Login</a>
-    </div>
-
-    <div class="header">
-        <h1>Master Ethical Hacking</h1>
-        <p>Become a cybersecurity expert with our comprehensive guides and tutorials.</p>
-    </div>
-
-    <div class="content-container">
-        <div class="row">
-            <div class="side">
-                <h2>Resources</h2>
-                <div class="card">
-                    <h3>Beginner's Guide</h3>
-                    <p>Start your journey with fundamental concepts and introductory courses.</p>
-                </div>
-                <div class="card">
-                    <h3>Advanced Techniques</h3>
-                    <p>Explore deeper into advanced hacking techniques and tools.</p>
-                </div>
-                <div class="card">
-                    <h3>Tools & Software</h3>
-                    <p>Discover the latest tools and software used by ethical hackers.</p>
-                </div>
-            </div>
-            <div class="main">
-                <h2>Featured Tutorials</h2>
-                <div class="fakeimg">Image</div>
-                <p>Stay updated with the latest tutorials and in-depth guides on ethical hacking techniques.</p>
-                
-                <h2>Latest Articles</h2>
-                <div class="fakeimg">Image</div>
-                <p>Read our latest blog posts for expert opinions, case studies, and news in the cybersecurity field.</p>
+                <a href="#">Network Security</a>
+                <a href="#">Malware Analysis</a>
             </div>
         </div>
     </div>
 
-    <div class="testimonials">
-        <h2>What Our Users Say</h2>
-        <div class="testimonial-card">
-            <p>"Cyber Ninja has been instrumental in advancing my ethical hacking skills. The tutorials are clear and comprehensive."</p>
-            <h4>- Alex J.</h4>
+    <!-- Coming Soon Section -->
+    <div class="coming-soon-container">
+        <h1>Cyber Ninja</h1>
+        <p>We're launching soon! Stay tuned for something amazing.</p>
+        <div class="countdown" id="countdown"></div>
+        <div class="newsletter">
+            <input type="email" placeholder="Enter your email" id="email">
+            <button onclick="subscribe()">Notify Me</button>
         </div>
-        <div class="testimonial-card">
-            <p>"I love the variety of resources available. From beginner to advanced, Cyber Ninja has it all."</p>
-            <h4>- Jamie L.</h4>
-        </div>
-    </div>
-
-    <div class="newsletter">
-        <h2>Subscribe to Our Newsletter</h2>
-        <p>Get the latest updates and exclusive content delivered to your inbox.</p>
-        <form>
-            <input type="email" placeholder="Enter your email">
-            <button type="submit">Subscribe</button>
-        </form>
-    </div>
-
-    <div class="footer">
-        <p>&copy; 2024 Cyber Ninja. All rights reserved.</p>
     </div>
 
     <script>
-        function toggleNav() {
-            const sidenav = document.getElementById('mySidenav');
-            if (sidenav.style.left === '0px') {
-                sidenav.style.left = '-100%';
-            } else {
-                sidenav.style.left = '0px';
+        // Countdown Timer
+        const launchDate = new Date("Dec 31, 2024 23:59:59").getTime();
+
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = launchDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown").innerHTML = days + "d " + hours + "h " +
+                minutes + "m " + seconds + "s ";
+
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("countdown").innerHTML = "We're Live!";
             }
+        }, 1000);
+
+        // Sidebar Menu Toggle
+        function toggleNav() {
+            const sidenav = document.querySelector(".sidenav");
+            sidenav.classList.toggle('open');
         }
 
-        function closeNav() {
-            document.getElementById('mySidenav').style.left = '-100%';
+        // Close sidenav on window resize if viewport width is larger than 768px
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                document.querySelector(".sidenav").classList.remove('open');
+            }
+        });
+
+        // Newsletter Subscription
+        function subscribe() {
+            const email = document.getElementById("email").value;
+            if (email) {
+                alert(`Thank you for subscribing with ${email}!`);
+            } else {
+                alert("Please enter a valid email address.");
+            }
         }
     </script>
 </body>

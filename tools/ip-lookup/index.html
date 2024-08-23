@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whois Lookup</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #c3cfe2 0%, #c3cfe2 50%, #cfd9df 50%, #cfd9df 100%);
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 90%;
+            width: 400px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 15px;
+            margin: 10px 0;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input:focus {
+            border-color: #007BFF;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+            outline: none;
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color: #007BFF;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .btn-group {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn-group button {
+            flex: 1;
+            margin: 0 5px;
+        }
+
+        .format-group {
+            margin-top: 20px;
+        }
+
+        #result {
+            margin-top: 20px;
+            text-align: left;
+            max-height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+
+        pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 6px;
+            word-wrap: break-word;
+            border: 1px solid #ddd;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 600px) {
+            .container {
+                width: 100%;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Whois Lookup</h1>
+        <form id="whoisForm">
+            <label for="domain">Enter Domain Name:</label>
+            <input type="text" id="domain" name="domain" required>
+            <button type="submit">Lookup</button>
+        </form>
+        <div id="result"></div>
+        <div class="format-group" id="formatGroup" style="display:none;">
+            <label for="format">Select Download Format:</label>
+            <select id="format">
+                <option value="json">JSON</option>
+                <option value="xml">XML</option>
+                <option value="csv">CSV</option>
+                <option value="pdf">PDF</option>
+                <option value="html">HTML</option>
+                <option value="py">Python (.py)</option>
+                <option value="sql">SQL</option>
+            </select>
+        </div>
+        <div class="btn-group" id="actionButtons" style="display:none;">
+            <button id="downloadBtn">Download</button>
+            <button id="shareBtn">Share Data</button>
+        </div>
+    </div>
+    <script>
+        document.getElementById('whoisForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const domain = document.getElementById('domain').value;
+            const apiKey = 'at_LwCNigyRUGRkHPKAZfPQkUbm0g9Wv';
+            const url = `https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey=${apiKey}&domainName=${domain}&outputFormat=JSON`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    displayResult(data);
+                    document.getElementById('formatGroup').style.display = 'block';
+                    document.getElementById('actionButtons').style.display = 'flex';
+                    enableDownload(data);
+                    enableShare(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching the API:', error);
+                });
+        });
+
+        function displayResult(data) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+        }
+
+        function enableDownload(data) {
+            const downloadBtn = document.getElementById('downloadBtn');
+            downloadBtn.onclick = function() {
+                const format = document.getElementById('format').value;
+                let content = '';
+                let mimeType = '';
+
+                switch (format) {
+                    case 'json':
+                        content = JSON.stringify(data, null, 2);
+                        mimeType = 'application/json';
+                        break;
+                    case 'xml':
+                        content = jsonToXML(data);
+                        mimeType = 'application/xml';
+                        break;
+                    case 'csv':
+                        content = jsonToCSV(data);
+                        mimeType = 'text/csv';
+                        break;
+                    case 'pdf':
+                        content = jsonToPDF(data);
+                        mimeType = 'application/pdf';
+                        break;
+                    case 'html':
+                        content = jsonToHTML(data);
+                        mimeType = 'text/html';
+                        break;
+                    case 'py':
+                        content = jsonToPython(data);
+                        mimeType = 'text/x-python';
+                        break;
+                    case 'sql':
+                        content = jsonToSQL(data);
+                        mimeType = 'text/sql';
+                        break;
+                    default:
+                        return;
+                }
+
+                const blob = new Blob([content], { type: mimeType });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `whois-data.${format}`;
+                a.click();
+                URL.revokeObjectURL(url);
+            };
+        }
+
+        function enableShare(data) {
+            const shareBtn = document.getElementById('shareBtn');
+            shareBtn.onclick = function() {
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'Whois Data',
+                        text: JSON.stringify(data, null, 2),
+                        url: document.location.href
+                    }).catch(error => {
+                        console.error('Error sharing the data:', error);
+                    });
+                } else {
+                    alert('Sharing is not supported by your browser.');
+                }
+            };
+        }
+
+        function jsonToXML(json) {
+            let xml = '<root>';
+            for (let prop in json) {
+                if (json.hasOwnProperty(prop)) {
+                    xml += `<${prop}>`;
+                    if (typeof json[prop] === 'object' && json[prop] !== null) {
+                        xml += jsonToXML(json[prop]);
+                    } else {
+                        xml += json[prop];
+                    }
+                    xml += `</${prop}>`;
+                }
+            }
+            xml += '</root>';
+            return xml;
+        }
+
+        function jsonToCSV(json) {
+            const keys = Object.keys(json).map(key => `"${key}"`).join(',');
+            const values = Object.values(json).map(value => {
+                if (typeof value === 'object' && value !== null) {
+                    return `"${JSON.stringify(value).replace(/"/g, '""')}"`;
+                }
+                return `"${value}"`;
+            }).join(',');
+            return keys + '\n' + values;
+        }
+
+        function jsonToPDF(data) {
+            return 'PDF generation requires a library like jsPDF';
+        }
+
+        function jsonToHTML(json) {
+            let html = '<div>';
+            for (let prop in json) {
+                if (json.hasOwnProperty(prop)) {
+                    html += `<div><strong>${prop}:</strong> ${typeof json[prop] === 'object' ? JSON.stringify(json[prop], null, 2) : json[prop]}</div>`;
+                }
+            }
+            html += '</div>';
+            return html;
+        }
+
+        function jsonToPython(json) {
+            let python = 'data = {\n';
+            for (let prop in json) {
+                if (json.hasOwnProperty(prop)) {
+                    python += `    "${prop}": ${JSON.stringify(json[prop])},\n`;
+                }
+            }
+            python = python.slice(0, -2); // Remove trailing comma
+            python += '\n}';
+            return python;
+        }
+
+        function jsonToSQL(json) {
+            const keys = Object.keys(json).map(key => `\`${key}\``).join(', ');
+            const values = Object.values(json).map(value => {
+                if (typeof value === 'string') {
+                    return `'${value.replace(/'/g, "''")}'`;
+                }
+                return value;
+            }).join(', ');
+            return `INSERT INTO table_name (${keys}) VALUES (${values});`;
+        }
+    </script>
+</body>
+</html>
